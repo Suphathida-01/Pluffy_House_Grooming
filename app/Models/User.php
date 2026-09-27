@@ -48,9 +48,15 @@ class User extends Authenticatable implements PasskeyUser
         ];
     }
 
-    /**
-     * Get the user's initials
-     */
+    public function customer() {
+        return $this->hasOne(Customer::class, 'user_id', 'user_id');
+    }
+
+    public function admin() {
+        return $this->hasOne(Admin::class, 'user_id', 'user_id');
+    }
+
+   
     public function initials(): string
     {
         $initials = Str::initials($this->name, true);
