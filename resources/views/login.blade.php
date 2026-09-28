@@ -7,10 +7,11 @@
 
     {{-- ต้องมี Tailwind อยู่แล้วในโปรเจกต์ (ผ่าน Vite) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     {{-- ใช้ Alpine.js สลับแท็บ login/register (ถ้ายังไม่มีให้ npm install alpinejs แล้ว import ใน app.js) --}}
 </head>
-<body class="bg-neutral-900 min-h-screen flex items-center justify-center p-6">
+{{-- เพิ่ม style เพื่อบังคับใช้ฟอนต์ Prompt ทั้งหน้า --}}
+<body class="bg-neutral-900 min-h-screen flex items-center justify-center p-6" style="font-family: 'Prompt', sans-serif;">
 
     <div x-data="{ tab: 'login' }" class="w-full max-w-5xl bg-[#faf6f0] rounded-2xl shadow-xl p-8">
 
