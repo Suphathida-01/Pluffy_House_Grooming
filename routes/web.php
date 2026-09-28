@@ -1,11 +1,24 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+// ===== Guest routes (ยังไม่ login) =====
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'show'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
-require __DIR__.'/settings.php';
+// ===== Authenticated routes =====
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/dashboard', function () {
+        return 'Customer dashboard';
+    })->name('dashboard');
+
+    Route::get('/admin/dashboard', function () {
+        return 'Admin dashboard';
+    })->name('admin.dashboard');
+});
