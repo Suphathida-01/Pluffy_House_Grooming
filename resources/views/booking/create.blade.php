@@ -31,9 +31,7 @@
             <i></i>
             <div class="step"><span>2</span><strong>วันเวลา</strong></div>
             <i></i>
-            <div class="step"><span>3</span><strong>ช่างแต่งขน</strong></div>
-            <i></i>
-            <div class="step"><span>4</span><strong>ยืนยัน</strong></div>
+            <div class="step"><span>3</span><strong>ยืนยัน</strong></div>
         </section>
 
         <div class="booking-layout">
