@@ -62,7 +62,7 @@
             </div>
 
             <div class="hero-image">
-                <img src="{{ asset('images/hero.jpg') }}" alt="Pluffy House Grooming">
+                <img src="{{ asset('images\ภาพhome.jpg') }}" alt="Pluffy House Grooming">
             </div>
         </div>
     </section>
@@ -108,7 +108,7 @@
             </div>
             <div class="packages">
                 <div class="package-card">
-                    <div class="thumb"><img src="{{ asset('images/package-bath.jpg') }}" alt="อาบน้ำสปา"></div>
+                    <div class="thumb"><img src="{{ asset('images\รูปอาบน้ำสปา.jpg') }}" alt="อาบน้ำสปา"></div>
                     <div class="package-body">
                         <div class="package-title"><h3>อาบน้ำสปา</h3><span class="price">เริ่มต้น 300฿</span></div>
                         <p>อาบน้ำ เป่าขน ตัดเล็บ ทำความสะอาดหู พร้อมสปาบำรุงผิวและขนให้นุ่มสวย</p>
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="package-card">
-                    <div class="thumb"><img src="{{ asset('images/package-cut.jpg') }}" alt="ตัดขนดีไซน์พิเศษ"></div>
+                    <div class="thumb"><img src="{{ asset('images\ภาพตัดขน.jpg') }}" alt="ตัดขนดีไซน์พิเศษ"></div>
                     <div class="package-body">
                         <div class="package-title"><h3>ตัดขนดีไซน์พิเศษ</h3><span class="price">เริ่มต้น 500฿</span></div>
                         <p>ตัดแต่งขนตามสายพันธุ์ ทรงสวยตามที่เจ้าของต้องการ โดยช่างผู้ชำนาญ</p>
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="package-card">
-                    <div class="thumb"><img src="{{ asset('images/package-full.jpg') }}" alt="อาบน้ำ + ตัดแต่งขน"></div>
+                    <div class="thumb"><img src="{{ asset('images\ภาพอาบน้ำตัดขน.jpg') }}" alt="อาบน้ำ + ตัดแต่งขน"></div>
                     <div class="package-body">
                         <div class="package-title"><h3>อาบน้ำ + ตัดแต่งขน</h3><span class="price">เริ่มต้น 700฿</span></div>
                         <p>บริการครบจบในที่เดียว ทั้งอาบน้ำสปาและตัดแต่งขนทรงสวย</p>
