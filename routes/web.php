@@ -34,40 +34,8 @@ Route::get('/services/{serviceSlug}', function ($serviceSlug) use ($serviceExamp
     $service = (object) $example;
     $durationLabel = $example['duration_label'];
 
-    return view('services.show', compact('service', 'durationLabel', 'serviceSlug'));
+    return view('services.show', compact('service', 'durationLabel'));
 })->name('services.show');
-
-Route::get('/booking/{serviceSlug}', function ($serviceSlug) use ($serviceExamples) {
-    if (!isset($serviceExamples[$serviceSlug])) {
-        abort(404);
-    }
-
-    $service = (object) $serviceExamples[$serviceSlug];
-
-    // ข้อมูลสัตว์เลี้ยงนี้เป็นตัวอย่างสำหรับจัดหน้าเท่านั้น ยังไม่ได้อ่านจากฐานข้อมูล
-    $pets = [
-        (object) [
-            'id' => 1,
-            'name' => 'น้องพลัฟฟี่ (Pluffy)',
-            'type' => 'สุนัข',
-            'breed' => 'มอลทีส (Maltese)',
-            'age' => '2.5 ปี',
-            'weight' => '3.2 กก.',
-            'image' => 'images/pet-dog.jpg',
-        ],
-        (object) [
-            'id' => 2,
-            'name' => 'น้องชาไทย (Chathai)',
-            'type' => 'แมว',
-            'breed' => 'เปอร์เซีย (Persian)',
-            'age' => '1 ปี',
-            'weight' => '4.0 กก.',
-            'image' => 'images/pet-cat.jpg',
-        ],
-    ];
-
-    return view('booking.create', compact('service', 'serviceSlug', 'pets'));
-})->name('booking.create');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
