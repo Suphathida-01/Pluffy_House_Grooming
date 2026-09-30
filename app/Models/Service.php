@@ -38,7 +38,11 @@ class Service extends Model
         return $this->service_status === 'active';
     }
 
-    
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'service_id', 'service_id');
+    }
+
     public function priceForWeight(float $kg): float
     {
         if ($kg <= 7) {
