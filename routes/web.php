@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Booking;
 use App\Models\Customer;
@@ -62,3 +63,6 @@ Route::get('/GM_page1', function () {
             ->get(),
     ]);
 })->name('admin.home');
+
+
+require __DIR__.'/bookings.php';
