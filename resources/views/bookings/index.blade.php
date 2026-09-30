@@ -109,7 +109,7 @@
                     @forelse ($bookings as $booking)
                         <tr>
                             <td><div class="main-text">{{ \Carbon\Carbon::parse($booking->booking_date)->format('d/m/Y') }}</div><div class="sub-text">{{ substr($booking->booking_start_time, 0, 5) }}–{{ substr($booking->booking_end_time, 0, 5) }} น.</div></td>
-                            <td><div class="main-text">{{ $booking->customer_name }}</div><div class="sub-text">{{ $booking->customer_phone }}</div></td>
+                            <td><div class="main-text"><a href="{{ route('customers.show', $booking->customer_id) }}">{{ $booking->customer_name }}</a></div><div class="sub-text">{{ $booking->customer_phone }}</div></td>
                             <td><div class="main-text">{{ $booking->pet_name }}</div><div class="sub-text">{{ $booking->pet_breed_name }}</div></td>
                             <td>{{ $booking->service_name }}</td>
                             <td>{{ number_format((float) $booking->booking_total_price, 2) }} ฿</td>
