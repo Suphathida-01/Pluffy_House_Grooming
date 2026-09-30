@@ -1,0 +1,185 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --purple: #7c5cf0;
+    --purple-dark: #4b3a9c;
+    --cream: #faf6f0;
+    --text: #3a3450;
+    --muted: #8b8698;
+    --border: #e7e2da;
+    --radius: 12px;
+}
+
+body {
+    font-family: 'Prompt', 'Kanit', sans-serif;
+    background: #1c1c1c;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    color: var(--text);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 960px;
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+}
+
+.auth-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--purple-dark);
+}
+.auth-logo .icon {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: var(--purple);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+}
+
+.auth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 24px;
+}
+
+/* ===== รูปฝั่งซ้าย ===== */
+.auth-hero {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    min-height: 420px;
+    background: var(--purple);
+}
+.auth-hero img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+}
+.auth-hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.05) 40%);
+}
+.auth-hero-text {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    color: #fff;
+}
+.auth-hero-text h2 { font-size: 22px; line-height: 1.4; margin-bottom: 8px; }
+.auth-hero-text p { font-size: 12px; opacity: 0.9; }
+
+/* ===== ฝั่งขวา ฟอร์ม ===== */
+.auth-form-side { display: flex; flex-direction: column; }
+
+.tabs {
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    color: var(--muted);
+    transition: 0.15s;
+}
+.tab-btn.active { background: var(--purple); color: #fff; }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.form-title { margin-bottom: 4px; font-size: 16px; color: var(--text); font-weight: 600; }
+.form-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 13px; margin-bottom: 6px; }
+.field label .req { color: #e0526b; }
+
+.input-wrap { position: relative; }
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="password"],
+.field input[type="tel"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    background: #fff;
+}
+.field input:focus { outline: none; border-color: var(--purple); }
+
+.toggle-pass {
+    position: absolute;
+    right: 10px; top: 50%;
+    transform: translateY(-50%);
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-size: 14px;
+}
+
+.forgot-link {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--purple);
+    text-decoration: none;
+    margin-top: 6px;
+}
+
+.checkbox-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+.checkbox-row input { margin-top: 2px; }
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: var(--purple);
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.btn-submit:hover { background: #6a4be0; }
+
+.alert-error {
+    background: #fdecec;
+    border: 1px solid #f5c2c2;
+    color: #c0392b;
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+.alert-error ul { margin: 0; padding-left: 18px; }
+
+@media (max-width: 760px) {
+    .auth-grid { grid-template-columns: 1fr; }
+    .auth-hero { min-height: 200px; }
+}
