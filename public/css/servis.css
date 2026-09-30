@@ -302,27 +302,19 @@ h2 {
     margin-top: 26px;
 }
 
-.book-main,
-.line-button {
+.book-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 1 260px;
     min-height: 44px;
     padding: 0 23px;
     border-radius: 30px;
     text-align: center;
-}
-
-.book-main {
-    flex: 1;
-}
-
-.line-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #7957ff;
-    background: #fff;
-    border: 2px solid #7957ff;
+    color: #fff;
+    background: #7957ff;
+    box-shadow: 0 4px 9px #7957ff2e;
     font-weight: bold;
-    white-space: nowrap;
 }
 
 @media (max-width: 1000px) {
@@ -432,5 +424,10 @@ h2 {
 
     .actions {
         flex-direction: column;
+    }
+
+    .book-main {
+        flex: 0 1 auto;
+        width: 100%;
     }
 }

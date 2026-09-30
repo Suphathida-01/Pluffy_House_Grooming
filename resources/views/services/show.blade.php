@@ -79,7 +79,6 @@
 
                 <div class="actions" id="booking">
                     <a class="book-main" href="{{ route('booking.create', $serviceSlug) }}">จองบริการนี้ทันที ✨</a>
-                    <a class="line-button" href="#booking">สอบถามข้อมูลผ่าน LINE</a>
                 </div>
             </article>
         </div>
