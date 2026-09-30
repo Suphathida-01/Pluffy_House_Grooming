@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Booking;
 use App\Models\Customer;
@@ -11,7 +12,7 @@ use App\Models\Service;
 
 Route::view('/', 'welcome')->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::redirect('dashboard', '/GM_page1')->name('dashboard');
 });
 
 require __DIR__.'/settings.php';
@@ -68,3 +69,15 @@ Route::get('/GM_page1', function () {
 
 require __DIR__.'/bookings.php';
 require __DIR__.'/customers.php';
+
+Route::get('/services', [AdminController::class, 'services'])->name('services');
+Route::get('/services/create', [AdminController::class, 'createService'])->name('createService');
+Route::post('/services', [AdminController::class, 'storeService'])->name('storeService');
+Route::get('/services/{service}/edit', [AdminController::class, 'editService'])->name('editService');
+Route::put('/services/{service}', [AdminController::class, 'updateService'])->name('updateService');
+Route::delete('/services/{service}', [AdminController::class, 'deleteService'])->name('deleteService');
+Route::get('/staff', [AdminController::class, 'staff'])->name('staff');
+Route::post('/staff', [AdminController::class, 'storeStaff'])->name('storeStaff');
+Route::post('/staff/schedules', [AdminController::class, 'storeSchedule'])->name('storeSchedule');
+Route::post('/staff/closed-days', [AdminController::class, 'toggleStoreClosure'])->name('toggleStoreClosure');
+Route::get('/admin/payments', [AdminController::class, 'payments'])->name('payments');

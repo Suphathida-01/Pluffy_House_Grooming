@@ -111,9 +111,9 @@
             <a href="{{ route('admin.home') }}" class="active" aria-current="page"><span class="menu-icon">⌂</span>หน้าแรก</a>
             <a href="{{ route('bookings.index') }}"><span class="menu-icon">▣</span>การจอง</a>
             <a href="{{ route('customers.index') }}"><span class="menu-icon">♙</span>จัดการลูกค้า</a>
-            <a href="#services"><span class="menu-icon">✂</span>บริการ &amp; แพ็กเกจ</a>
-            <a href="#staff"><span class="menu-icon">♧</span>จัดการช่าง</a>
-            <a href="#"><span class="menu-icon">▥</span>รายงานยอดขาย</a>
+            <a href="{{ route('services') }}"><span class="menu-icon">✂</span>บริการ &amp; แพ็กเกจ</a>
+            <a href="{{ route('staff') }}"><span class="menu-icon">♧</span>จัดการช่าง</a>
+            <a href="{{ route('payments') }}"><span class="menu-icon">▥</span>รายงานยอดขาย</a>
         </nav>
         <div class="admin">
             <div class="avatar">ADM</div>

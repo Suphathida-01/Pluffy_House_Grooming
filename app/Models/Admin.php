@@ -12,16 +12,16 @@ class Admin extends Model
     protected $table = 'admins';
     protected $primaryKey = 'admin_id';
 
+    protected $fillable = ['user_id'];
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
-    // แอดมิน/ช่าง 1 คน มีตารางงานหลายช่วง
     public function schedules() {
         return $this->hasMany(AdminSchedule::class, 'admin_id', 'admin_id');
     }
 
-    // แอดมินรับจองได้หลายคิว
     public function bookings() {
         return $this->hasMany(Booking::class, 'admin_id', 'admin_id');
     }
