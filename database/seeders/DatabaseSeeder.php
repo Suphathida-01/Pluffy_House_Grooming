@@ -306,11 +306,15 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
 
-            // Create one available work shift for the demo administrator.
-            DB::table('admin_schedules')->updateOrInsert(
-                ['admin_id' => $adminId, 'work_date' => now()->toDateString(), 'start_time' => '09:00:00'],
-                ['end_time' => '18:00:00', 'status' => 'available', 'created_at' => $now, 'updated_at' => $now]
-            );
+            // Add demo shifts for the next two weeks so the booking page has future slots.
+            foreach (range(0, 13) as $daysAhead) {
+                $workDate = now()->addDays($daysAhead)->toDateString();
+
+                DB::table('admin_schedules')->updateOrInsert(
+                    ['admin_id' => $adminId, 'work_date' => $workDate, 'start_time' => '09:00:00'],
+                    ['end_time' => '18:00:00', 'status' => 'available', 'created_at' => $now, 'updated_at' => $now]
+                );
+            }
         });
     }
 }
