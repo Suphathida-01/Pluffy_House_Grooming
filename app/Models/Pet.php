@@ -11,7 +11,7 @@ class Pet extends Model
     use SoftDeletes;
 
     protected $table = 'pets';
-    protected $primaryKey = 'pet_id';
+    protected $primaryKey = 'id';
 
     public function customer() {
         return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');

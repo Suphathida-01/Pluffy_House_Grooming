@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('service_name');
             $table->text('service_description');
             $table->integer('service_duration_minutes');
+            $table->decimal('price_small', 10, 2)->default(0);
+            $table->decimal('price_medium', 10, 2)->default(0);
+            $table->decimal('price_large', 10, 2)->default(0);
             $table->decimal('service_price', 8, 2);
             $table->enum('service_status', ['active', 'inactive'])->default('active');
             $table->timestamps();

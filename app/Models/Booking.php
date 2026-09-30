@@ -12,12 +12,24 @@ class Booking extends Model
     protected $table = 'bookings';
     protected $primaryKey = 'booking_id';
 
+     protected $fillable = [
+        'booking_date',
+        'booking_start_time',
+        'booking_end_time',
+        'booking_total_price',
+        'booking_status',   // 'pending' | 'confirmed' | 'completed'
+        'customer_id',
+        'admin_id',         // ช่างที่รับงาน
+        'service_id',
+        'pet_id',
+    ];
+
     public function customer() {
         return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
     }
 
     public function pet() {
-        return $this->belongsTo(Pet::class, 'pet_id', 'pet_id');
+        return $this->belongsTo(Pet::class, 'pet_id', 'id');
     }
 
     public function service() {
@@ -28,7 +40,6 @@ class Booking extends Model
         return $this->belongsTo(Admin::class, 'admin_id', 'admin_id');
     }
 
-    // การจอง 1 รายการ มีข้อมูลการชำระเงิน 1 รายการ
     public function payment() {
         return $this->hasOne(Payment::class, 'booking_id', 'booking_id');
     }
