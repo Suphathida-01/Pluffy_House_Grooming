@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const summaryDateTime = document.getElementById('summary-date-time');
     const summaryPrice = document.getElementById('summary-price');
     const summaryWeightRate = document.getElementById('summary-weight-rate');
-    const confirmDetails = document.getElementById('confirm-details');
     const addPetForm = document.getElementById('add-pet-form');
     const bookingPage = document.querySelector('.booking-page');
     const dateTimeLink = document.getElementById('to-date');
@@ -20,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedDate = new Date(initialDateParts[0], initialDateParts[1] - 1, initialDateParts[2]);
     let monthToShow = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
     let selectedTime = bookingPage.dataset.initialTime || '';
+    const bookingCode = 'PH-' + formatDate(selectedDate).replace(/-/g, '') + '-' + String(Math.floor(Math.random() * 900) + 100);
 
     function getWeightPrice(weight) {
         if (weight > 30) return { extra: 400, label: 'มากกว่า 30 กก.' };
@@ -39,6 +39,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function formatDate(date) {
         return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
+    }
+
+    function selectedPetCard() {
+        return petList.querySelector('.pet-option.selected');
+    }
+
+    function bookingDateLabel() {
+        return selectedDate ? selectedDate.toLocaleDateString('th-TH', {
+            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+        }) : 'ยังไม่ได้เลือกวันเวลา';
+    }
+
+    function refreshReviewDetails() {
+        const pet = selectedPetCard();
+        if (!pet) return;
+
+        const petName = pet.dataset.petName;
+        const petBreed = pet.dataset.petBreed;
+        const petType = pet.dataset.petType;
+        const petDescription = petType + ' · ' + petBreed + ' · ' + pet.dataset.petWeight + ' กก.';
+        const serviceName = document.querySelector('.summary-service strong').textContent;
+        const dateTime = bookingDateLabel();
+        const timeLabel = selectedTime ? Number(selectedTime.slice(0, 2)) + ':00 น.' : 'ยังไม่ได้เลือกเวลา';
+        const price = summaryPrice.textContent;
+        const isCat = petType === 'แมว';
+        const avatar = isCat ? '🐱' : '🐶';
+
+        document.getElementById('confirm-pet-name').textContent = petName;
+        document.getElementById('confirm-pet-service').textContent = petDescription + ' · ' + serviceName + ' (เริ่มต้น ' + price + ')';
+        document.getElementById('confirm-date').textContent = dateTime;
+        document.getElementById('confirm-time').textContent = 'เวลา ' + timeLabel;
+        document.getElementById('confirm-pet-avatar').textContent = avatar;
+        document.getElementById('confirm-pet-avatar').className = 'pet-avatar ' + (isCat ? 'cat' : 'dog');
+
+        document.getElementById('payment-booking-id').textContent = bookingCode;
+        document.getElementById('payment-pet-name').textContent = petName + ' (' + petBreed + ')';
+        document.getElementById('payment-pet-avatar').textContent = avatar;
+        document.getElementById('payment-service').textContent = serviceName;
+        document.getElementById('payment-date').textContent = dateTime;
+        document.getElementById('payment-time').textContent = timeLabel;
+        document.getElementById('payment-total').textContent = price;
+        document.getElementById('pay-demo').textContent = 'จำลองการชำระเงิน (' + price + ')';
     }
 
     function selectPet(card) {
@@ -107,9 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const dateLabel = selectedDate.toLocaleDateString('th-TH', {
-            weekday: 'long', day: 'numeric', month: 'short', year: 'numeric'
-        });
+        const dateLabel = bookingDateLabel();
         if (!selectedTime) {
             summaryDateTime.textContent = dateLabel + ' · ยังไม่ได้เลือกเวลา';
             document.getElementById('to-confirm').disabled = true;
@@ -289,9 +329,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('date-panel').hidden = step !== 2;
         document.getElementById('time-panel').hidden = step !== 2;
         document.getElementById('confirm-panel').hidden = step !== 3;
+        document.getElementById('payment-panel').hidden = step !== 4;
+        document.getElementById('success-panel').hidden = step !== 5;
+        document.querySelector('.steps').hidden = step >= 4;
+        bookingPage.dataset.screen = step === 4 ? 'payment' : (step === 5 ? 'success' : 'booking');
         document.getElementById('to-date').hidden = step !== 1;
         document.getElementById('date-summary-actions').hidden = step !== 2;
         document.getElementById('confirm-summary-actions').hidden = step !== 3;
+        document.querySelector('.summary-panel').hidden = step >= 4;
 
         document.querySelectorAll('.step').forEach(function (button) {
             const targetStep = Number(button.dataset.stepTarget);
@@ -299,9 +344,20 @@ document.addEventListener('DOMContentLoaded', function () {
             button.classList.toggle('done', targetStep < step);
         });
 
-        if (step === 3) {
-            confirmDetails.textContent = summaryPetName.textContent + ' — ' + summaryDateTime.textContent;
-            document.getElementById('demo-confirm-message').textContent = 'การยืนยันนี้เป็นตัวอย่าง จะไม่มีการบันทึกการจองจริง';
+        if (step === 3 || step === 4) {
+            refreshReviewDetails();
+        }
+
+        if (step === 5) {
+            refreshReviewDetails();
+            const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            const methodNames = { promptpay: 'QR Code พร้อมเพย์ (ตัวอย่าง)', card: 'บัตรเครดิต/เดบิต (ตัวอย่าง)', transfer: 'โอนผ่านธนาคาร (ตัวอย่าง)' };
+            document.getElementById('success-booking-id').textContent = bookingCode;
+            document.getElementById('success-pet').textContent = summaryPetName.textContent;
+            document.getElementById('success-service').textContent = document.querySelector('.summary-service strong').textContent;
+            document.getElementById('success-date-time').textContent = summaryDateTime.textContent;
+            document.getElementById('success-payment-method').textContent = methodNames[selectedMethod];
+            document.getElementById('success-total').textContent = summaryPrice.textContent;
         }
     }
 
@@ -314,8 +370,25 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('back-to-pet').addEventListener('click', function () { setStep(1); });
     document.getElementById('to-confirm').addEventListener('click', function () { setStep(3); });
     document.getElementById('back-to-date').addEventListener('click', function () { setStep(2); });
-    document.getElementById('confirm-booking').addEventListener('click', function () {
-        document.getElementById('demo-confirm-message').textContent = 'ตรวจสอบรายการตัวอย่างแล้วค่ะ ไม่มีข้อมูลถูกบันทึกลงฐานข้อมูล';
+    document.getElementById('confirm-and-pay').addEventListener('click', function () {
+        const contactForm = document.getElementById('contact-form');
+        if (!contactForm.reportValidity()) return;
+        setStep(4);
+    });
+    document.getElementById('back-to-confirm').addEventListener('click', function () { setStep(3); });
+    document.getElementById('pay-demo').addEventListener('click', function () {
+        setStep(5);
+    });
+    document.querySelectorAll('input[name="payment_method"]').forEach(function (input) {
+        input.addEventListener('change', function () {
+            document.querySelectorAll('.payment-method').forEach(function (method) {
+                method.classList.toggle('selected', method.querySelector('input').checked);
+            });
+            document.getElementById('promptpay-extra').hidden = input.value !== 'promptpay';
+            document.getElementById('card-extra').hidden = input.value !== 'card';
+            document.getElementById('transfer-extra').hidden = input.value !== 'transfer';
+            refreshReviewDetails();
+        });
     });
 
     const initiallySelectedPet = petList.querySelector('.pet-option.selected');

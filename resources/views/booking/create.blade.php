@@ -93,6 +93,7 @@
                         </label>
                     </div>
                     <button class="save-pet-button" type="submit" id="save-pet">เพิ่มและเลือกสัตว์เลี้ยง (ตัวอย่าง) 🐾</button>
+                    <p class="demo-note" id="demo-confirm-message">ข้อมูลสัตว์เลี้ยงใหม่จะอยู่ในหน้านี้ชั่วคราว ยังไม่ได้บันทึก</p>
                     </form>
                 </section>
 
@@ -126,11 +127,90 @@
                     </div>
                 </section>
 
-                <section class="panel confirm-panel" id="confirm-panel" {{ $selectedStep !== 3 ? 'hidden' : '' }}>
-                    <h1>ตรวจสอบข้อมูลการจอง ✨</h1>
-                    <p id="confirm-details"></p>
-                    <button type="button" class="primary-button" id="confirm-booking">ทดลองยืนยันรายการ</button>
-                    <p class="demo-note" id="demo-confirm-message">การยืนยันนี้เป็นตัวอย่าง จะไม่มีการบันทึกการจองจริง</p>
+                <section class="panel confirm-panel" id="confirm-panel" hidden>
+                    <h1>ตรวจสอบความถูกต้องของการจองคิว ✨</h1>
+                    <div class="confirm-pet-band">
+                        <span class="pet-avatar dog" id="confirm-pet-avatar" aria-hidden="true">🐶</span>
+                        <div><strong id="confirm-pet-name">ยังไม่ได้เลือกสัตว์เลี้ยง</strong><span id="confirm-pet-service"></span></div>
+                    </div>
+                    <div class="confirm-info-grid">
+                        <div><small>🗓️ วันเวลาที่นัดหมาย</small><strong id="confirm-date">ยังไม่ได้เลือกวันเวลา</strong><b id="confirm-time"></b></div>
+                        <div><small>✂️ บริการที่เลือก</small><strong id="confirm-service">{{ $service->service_name }}</strong><span>ระยะเวลา {{ $service->duration_label }}</span></div>
+                    </div>
+                    <form id="contact-form" class="contact-form">
+                        <h2>ข้อมูลผู้ติดต่อ &amp; รายละเอียดเพิ่มเติม 📞</h2>
+                        <div class="contact-fields">
+                            <label>ชื่อ-นามสกุล เจ้าของ<input id="owner-name" name="owner_name" type="text" placeholder="กรอกชื่อ-นามสกุล" maxlength="120" required></label>
+                            <label>เบอร์โทรศัพท์ติดต่อ<input id="owner-phone" name="owner_phone" type="tel" placeholder="เช่น 089-123-4567" maxlength="20" pattern="[0-9+() -]{9,20}" required></label>
+                        </div>
+                        <label class="note-field">ความต้องการเพิ่มเติม / หมายเหตุถึงสไตลิสต์<textarea id="owner-note" name="owner_note" rows="3" maxlength="500" placeholder="แจ้งรายละเอียดที่อยากให้ทางร้านทราบ (ไม่บังคับ)"></textarea></label>
+                        <label class="terms-check"><input id="booking-terms" type="checkbox" required><span>ฉันยอมรับเงื่อนไขการให้บริการ และนโยบายความเป็นส่วนตัวของ Pluffy House Grooming</span></label>
+                    </form>
+                </section>
+
+                <section class="panel payment-panel" id="payment-panel" hidden>
+                    <div class="payment-heading">
+                        <div><h1>ชำระเงินค่าบริการ</h1><p>โปรดตรวจสอบรายละเอียดการจองและเลือกช่องทางชำระเงิน</p></div>
+                        <div class="booking-code"><small>หมายเลขจอง (ตัวอย่าง)</small><strong id="payment-booking-id">PH-BOOKING</strong></div>
+                    </div>
+                    <div class="payment-layout">
+                        <section class="payment-card">
+                            <h2>สรุปรายละเอียดการจอง</h2>
+                            <div class="payment-pet"><span id="payment-pet-avatar">🐶</span><div><small>สัตว์เลี้ยง</small><strong id="payment-pet-name"></strong></div></div>
+                            <div class="payment-summary-grid">
+                                <div><small>บริการที่จอง</small><strong id="payment-service"></strong></div>
+                                <div><small>วันที่รับบริการ</small><strong id="payment-date"></strong></div>
+                                <div><small>เวลานัดหมาย</small><strong id="payment-time"></strong></div>
+                            </div>
+                            <div class="payment-total"><strong>ยอดชำระทั้งหมด</strong><b id="payment-total"></b></div>
+                        </section>
+                        <section class="payment-card">
+                            <h2>เลือกช่องทางการชำระเงิน</h2>
+                            <div class="payment-methods">
+                                <label class="payment-method selected" data-payment-choice="promptpay"><input type="radio" name="payment_method" value="promptpay" checked><span class="method-radio"></span><strong>QR Code พร้อมเพย์</strong><small>สแกนเพื่อชำระเงิน</small></label>
+                                <div class="payment-extra" id="promptpay-extra">
+                                    <div class="demo-qr" role="img" aria-label="QR ตัวอย่าง ไม่สามารถใช้ชำระเงินจริง">
+                                        <svg viewBox="0 0 210 210" aria-hidden="true">
+                                            <rect width="210" height="210" fill="#fff"/>
+                                            <path fill="#222" d="M10 10h60v60H10zM20 20v40h40V20zM30 30h20v20H30zM140 10h60v60h-60zM150 20v40h40V20zM160 30h20v20h-20zM10 140h60v60H10zM20 150v40h40v-40zM30 160h20v20H30zM85 10h10v10H85zM105 10h10v10h-10zM85 30h20v10H85zM115 30h10v20h-10zM85 55h10v15H85zM105 60h20v10h-20zM80 85h15v15H80zM105 85h10v10h-10zM125 80h15v15h-15zM150 85h10v20h-10zM175 85h20v10h-20zM90 110h20v10H90zM120 105h10v20h-10zM140 115h20v10h-20zM175 110h15v15h-15zM80 135h15v10H80zM105 140h10v20h-10zM125 140h20v10h-20zM155 140h15v15h-15zM185 140h15v10h-15zM85 165h10v20H85zM105 175h20v10h-20zM140 165h10v25h-10zM160 170h10v10h-10zM180 165h20v20h-20z"/>
+                                        </svg>
+                                        <span>ตัวอย่าง</span>
+                                    </div>
+                                    <p>QR นี้ใช้ประกอบการแสดงผลเท่านั้น<br>ยังไม่สามารถสแกนชำระเงินจริง</p>
+                                </div>
+                                <label class="payment-method" data-payment-choice="card"><input type="radio" name="payment_method" value="card"><span class="method-radio"></span><strong>บัตรเครดิต / บัตรเดบิต</strong></label>
+                                <div class="payment-extra" id="card-extra" hidden>
+                                    <label>หมายเลขบัตร<input id="card-number" type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" maxlength="19"></label>
+                                    <div class="card-small-fields"><label>วันหมดอายุ<input id="card-expiry" type="text" placeholder="MM/YY" maxlength="5"></label><label>รหัส CVV<input id="card-cvv" type="password" inputmode="numeric" placeholder="123" maxlength="4"></label></div>
+                                    <p>แบบฟอร์มตัวอย่าง จะไม่มีการส่งหรือเรียกเก็บข้อมูลบัตร</p>
+                                </div>
+                                <label class="payment-method" data-payment-choice="transfer"><input type="radio" name="payment_method" value="transfer"><span class="method-radio"></span><strong>โอนผ่านธนาคาร</strong><small>ดูข้อมูลบัญชีสำหรับโอน</small></label>
+                                <div class="payment-extra transfer-info" id="transfer-extra" hidden>ข้อมูลบัญชีธนาคารจะแสดงเมื่อเชื่อมต่อระบบรับชำระเงินจริง</div>
+                            </div>
+                            <p class="payment-demo-notice">หน้าชำระเงินนี้เป็นตัวอย่าง ไม่มีการรับเงินจริง การกดปุ่มด้านล่างจะแสดงหน้าสำเร็จเพื่อทดสอบขั้นตอนเท่านั้น</p>
+                            <div class="payment-page-actions">
+                                <button class="outline-button" type="button" id="back-to-confirm">ย้อนกลับ</button>
+                                <button class="primary-button" type="button" id="pay-demo">จำลองการชำระเงิน</button>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+
+                <section class="panel success-panel" id="success-panel" hidden>
+                    <div class="success-icon" aria-hidden="true">✓</div>
+                    <h1>จองคิวสำเร็จ!</h1>
+                    <p>ระบบตัวอย่างตรวจสอบข้อมูลเรียบร้อยแล้ว<br>ร้านสามารถยืนยันคิวจริงให้คุณได้เมื่อเชื่อมต่อระบบค่ะ</p>
+                    <div class="success-card">
+                        <div class="success-card-heading"><h2>รายละเอียดการนัดหมาย</h2><span>ตัวอย่าง</span></div>
+                        <div class="success-row"><small>รหัสการจอง</small><strong id="success-booking-id"></strong></div>
+                        <div class="success-row"><small>สัตว์เลี้ยง</small><strong id="success-pet"></strong></div>
+                        <div class="success-row"><small>บริการหลัก</small><strong id="success-service"></strong></div>
+                        <div class="success-row"><small>วันเวลานัดหมาย</small><strong id="success-date-time"></strong></div>
+                        <div class="success-row"><small>ช่องทางชำระเงิน</small><strong id="success-payment-method"></strong></div>
+                        <div class="success-row success-total"><small>ยอดชำระ</small><strong id="success-total"></strong></div>
+                    </div>
+                    <div class="success-actions"><a class="primary-button" href="{{ route('home') }}">กลับหน้าหลัก</a><a class="outline-button" href="{{ route('booking.create', $serviceSlug) }}">จองบริการอื่น</a></div>
+                    <p class="demo-note">รายการนี้ยังไม่ถูกบันทึกและไม่มีการชำระเงินจริง</p>
                 </section>
             </div>
 
@@ -152,8 +232,9 @@
                     <a class="outline-button" id="back-to-pet" href="{{ route('booking.create', ['serviceSlug' => $serviceSlug, 'pet_id' => $selectedPetId]) }}">ย้อนกลับ</a>
                     <button class="primary-button" type="button" id="to-confirm" {{ $selectedStep !== 2 ? 'disabled' : '' }}>ขั้นตอนถัดไป (ยืนยัน) ➡️</button>
                 </div>
-                <div class="summary-actions" id="confirm-summary-actions" {{ $selectedStep !== 3 ? 'hidden' : '' }}>
+                <div class="summary-actions" id="confirm-summary-actions" hidden>
                     <button class="outline-button" type="button" id="back-to-date">ย้อนกลับ</button>
+                    <button class="primary-button" type="button" id="confirm-and-pay">ยืนยันข้อมูล ➡️</button>
                 </div>
                 <p class="summary-note" id="booking-message">เลือกสัตว์เลี้ยงและลองเลือกวันเวลาได้ ข้อมูลจะหายเมื่อปิดหรือรีเฟรชหน้านี้</p>
             </aside>
