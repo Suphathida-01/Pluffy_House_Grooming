@@ -9,13 +9,13 @@
 </head>
 <body>
     <header class="topbar">
-        <a class="brand" href="{{ route('home') }}">
+        <a class="brand" href="{{ route('dashboard') }}">
             <span class="brand-mark">🐾</span>
             <span class="brand-name">Pluffy House <span>Grooming</span></span>
         </a>
         <nav class="nav">
-            <a href="{{ route('home') }}">Home</a>
-            <a href="{{ route('home') }}">บริการ</a>
+            <a href="{{ route('dashboard') }}">Home</a>
+            <a href="{{ route('dashboard') }}">บริการ</a>
             <a class="active" href="{{ route('booking.create', $serviceSlug) }}">จองคิว</a>
             <a href="{{ route('dashboard') }}">การจองของฉัน</a>
         </nav>
