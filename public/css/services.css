@@ -209,12 +209,20 @@ main {
     justify-content: center;
     min-height: 42px;
     margin-top: auto;
-    color: #7957ff;
-    background: #fff;
+    color: #fff;
+    background: #7957ff;
     border: 1px solid #7957ff;
     border-radius: 22px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
+    box-shadow: 0 4px 10px #7957ff35;
+    transition: background .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.detail-button:hover {
+    background: #6845e8;
+    box-shadow: 0 6px 14px #7957ff45;
+    transform: translateY(-1px);
 }
 
 .footer {

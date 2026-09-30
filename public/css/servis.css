@@ -215,6 +215,38 @@ h1 {
     font-size: 13px;
 }
 
+.weight-prices {
+    margin: 0 0 18px;
+    padding: 14px 17px;
+    border: 1px solid #eee5fa;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.weight-prices h2 {
+    margin: 0 0 7px;
+    font-size: 14px;
+}
+
+.weight-price-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 5px 0;
+    border-bottom: 1px solid #f2edf8;
+}
+
+.weight-price-row strong {
+    color: #7957ff;
+    white-space: nowrap;
+}
+
+.weight-prices p {
+    margin: 8px 0 0;
+    color: #777178;
+    font-size: 11px;
+}
+
 .description {
     margin: 0;
     font-size: 14px;
