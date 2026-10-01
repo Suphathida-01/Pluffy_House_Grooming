@@ -25,7 +25,7 @@
         </div>
     </header>
 
-    <main class="booking-page" data-initial-step="{{ $selectedStep }}" data-initial-date="{{ $selectedDate->toDateString() }}" data-initial-time="{{ $selectedTime }}" data-date-time-url="{{ route('booking.datetime', $serviceSlug) }}" data-pet-url="{{ route('booking.create', $serviceSlug) }}" data-base-price="{{ (int) $service->service_price }}">
+    <main class="booking-page" data-initial-step="{{ $selectedStep }}" data-initial-date="{{ $selectedDate->toDateString() }}" data-initial-time="{{ $selectedTime }}" data-date-time-url="{{ route('booking.datetime', $serviceSlug) }}" data-pet-url="{{ route('booking.create', $serviceSlug) }}" data-price-s="{{ (int) $service->size_prices['S'] }}" data-price-m="{{ (int) $service->size_prices['M'] }}" data-price-l="{{ (int) $service->size_prices['L'] }}">
         <section class="steps" aria-label="ขั้นตอนการจอง">
             <button class="step{{ $selectedStep === 1 ? ' active' : '' }}{{ $selectedStep > 1 ? ' done' : '' }}" type="button" data-step-target="1"><span>1</span><strong>สัตว์เลี้ยง</strong></button>
             <i></i>

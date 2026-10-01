@@ -35,7 +35,7 @@
 
         <section class="service-list" aria-label="รายการบริการ">
             <article class="service-card">
-                <img src="{{ asset('images/service-bath.jpg') }}" alt="บริการอาบน้ำสปาถนอมผิว">
+                <img src="{{ asset('images/New%20folder/service-bath.jpg') }}" alt="บริการอาบน้ำสปาถนอมผิว">
                 <div class="card-content">
                     <div class="card-heading"><h2>อาบน้ำสปาถนอมผิว</h2><strong>300฿</strong></div>
                     <p class="duration">◴ ระยะเวลา: 1 ชม.</p>
@@ -45,7 +45,7 @@
             </article>
 
             <article class="service-card">
-                <img src="{{ asset('images/service-trim.jpg') }}" alt="บริการตัดขนสุนัขและแมว">
+                <img src="{{ asset('images/New%20folder/service-trim.jpg') }}" alt="บริการตัดขนสุนัขและแมว">
                 <div class="card-content">
                     <div class="card-heading"><h2>อาบน้ำ + ตัดขน Full Course (หมาและแมว)</h2><strong>700฿</strong></div>
                     <p class="duration">◴ ระยะเวลา: 1 ชม.</p>
@@ -55,7 +55,7 @@
             </article>
 
             <article class="service-card">
-                <img src="{{ asset('images/service-tick.jpg') }}" alt="บริการดูแลและป้องกันเห็บหมัดสำหรับสัตว์เลี้ยง">
+                <img src="{{ asset('images/New%20folder/service-tick.jpg') }}" alt="บริการดูแลและป้องกันเห็บหมัดสำหรับสัตว์เลี้ยง">
                 <div class="card-content">
                     <div class="card-heading"><h2> กำจัดเห็บหมัด + ป้องกัน </h2><strong>400฿</strong></div>
                     <p class="duration">◴ ระยะเวลา: 1 ชม.</p>

@@ -35,10 +35,10 @@
 
         <div class="layout">
             <section class="gallery">
-                <img class="hero-photo" src="{{ asset('images/' . $service->hero_image) }}" alt="{{ $service->service_name }} ที่ Pluffy House Grooming">
+                <img class="hero-photo" src="{{ asset('images/New%20folder/' . $service->hero_image) }}" alt="{{ $service->service_name }} ที่ Pluffy House Grooming">
                 <div class="thumbnails">
                     @foreach ($service->gallery_images as $image)
-                        <img src="{{ asset('images/' . $image) }}" alt="ภาพตัวอย่างบริการ{{ $service->service_name }}">
+                        <img src="{{ asset('images/New%20folder/' . $image) }}" alt="ภาพตัวอย่างบริการ{{ $service->service_name }}">
                     @endforeach
                 </div>
             </section>
@@ -53,14 +53,13 @@
 
                 <div class="price-row">
                     <span class="price">เริ่มต้น {{ number_format($service->service_price) }}฿</span>
-                    <span class="price-note">*{{ $service->price_note }}</span>
                 </div>
 
                 <div class="weight-prices">
-                    <h2>ราคาแยกตามน้ำหนัก</h2>
+                    <h2>ราคาแยกตามไซซ์</h2>
                     @foreach ($priceTiers as $tier)
                         <div class="weight-price-row">
-                            <span>{{ $tier['label'] }}</span>
+                            <span><strong>{{ $tier['label'] }}</strong> · {{ $tier['weight'] }}</span>
                             <strong>{{ number_format($tier['price'], 0) }}฿</strong>
                         </div>
                     @endforeach

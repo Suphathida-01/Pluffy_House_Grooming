@@ -22,19 +22,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const bookingCode = 'PH-' + formatDate(selectedDate).replace(/-/g, '') + '-' + String(Math.floor(Math.random() * 900) + 100);
 
     function getWeightPrice(weight) {
-        if (weight > 30) return { extra: 400, label: 'มากกว่า 30 กก.' };
-        if (weight > 20) return { extra: 300, label: 'มากกว่า 20–30 กก.' };
-        if (weight > 10) return { extra: 200, label: 'มากกว่า 10–20 กก.' };
-        if (weight > 5) return { extra: 100, label: 'มากกว่า 5–10 กก.' };
-        return { extra: 0, label: 'ไม่เกิน 5 กก.' };
+        if (weight > 15) return { size: 'L', label: 'มากกว่า 15 กก.' };
+        if (weight > 5) return { size: 'M', label: 'มากกว่า 5–15 กก.' };
+        return { size: 'S', label: 'ไม่เกิน 5 กก.' };
     }
 
     function updatePetPrice(card) {
         const weight = Number(card.dataset.petWeight) || 0;
         const tier = getWeightPrice(weight);
-        const price = Number(bookingPage.dataset.basePrice) + tier.extra;
+        const price = Number(bookingPage.dataset['price' + tier.size]);
         summaryPrice.textContent = Math.round(price).toLocaleString('th-TH') + '฿';
-        summaryWeightRate.textContent = 'น้ำหนัก ' + weight + ' กก. · ช่วง ' + tier.label + ' (ราคาเริ่มต้น + ' + tier.extra.toLocaleString('th-TH') + '฿)';
+        summaryWeightRate.textContent = 'น้ำหนัก ' + weight + ' กก. · ไซซ์ ' + tier.size + ' (' + tier.label + ')';
     }
 
     function formatDate(date) {
