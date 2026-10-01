@@ -17,7 +17,7 @@
             <a href="{{ route('home') }}">Home</a>
             <a href="{{ route('home') }}">บริการ</a>
             <a class="active" href="{{ route('booking.create', $serviceSlug) }}">จองคิว</a>
-            <a href="{{ route('dashboard') }}">การจองของฉัน</a>
+            <a href="{{ route('bookings.index') }}">การจองของฉัน</a>
         </nav>
         <div class="account">
             <a class="login" href="{{ route('login') }}">เข้าสู่ระบบ</a>
@@ -209,7 +209,7 @@
                         <div class="success-row"><small>ช่องทางชำระเงิน</small><strong id="success-payment-method"></strong></div>
                         <div class="success-row success-total"><small>ยอดชำระ</small><strong id="success-total"></strong></div>
                     </div>
-                    <div class="success-actions"><a class="primary-button" href="{{ route('home') }}">กลับหน้าหลัก</a><a class="outline-button" href="{{ route('booking.create', $serviceSlug) }}">จองบริการอื่น</a></div>
+                    <div class="success-actions"><a class="primary-button" href="{{ route('bookings.index') }}">ดูการจองของฉัน</a><a class="outline-button" href="{{ route('home') }}">กลับหน้าหลัก</a></div>
                     <p class="demo-note">รายการนี้ยังไม่ถูกบันทึกและไม่มีการชำระเงินจริง</p>
                 </section>
             </div>

@@ -18,7 +18,7 @@
             <a href="{{ route('home') }}">Home</a>
             <a class="active" href="{{ route('home') }}">บริการ</a>
             <a href="#services">จองคิว</a>
-            <a href="{{ route('dashboard') }}">การจองของฉัน</a>
+            <a href="{{ route('bookings.index') }}">การจองของฉัน</a>
         </nav>
 
         <div class="account">
